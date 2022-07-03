@@ -9,7 +9,7 @@ import '../index.css';
 const ANIMATION_SPEED_MS = 3;
 
 // Change this value for the number of bars (value) in the array.
-const NUMBER_OF_ARRAY_BARS = 150;
+const NUMBER_OF_ARRAY_BARS = 125;
 
 // This is the main color of the array bars.
 const PRIMARY_COLOR = 'turquoise';
