@@ -9,7 +9,7 @@ import '../index.css';
 const ANIMATION_SPEED_MS = 3;
 
 // Change this value for the number of bars (value) in the array.
-const NUMBER_OF_ARRAY_BARS = 125;
+const NUMBER_OF_ARRAY_BARS = 100;
 
 // This is the main color of the array bars.
 const PRIMARY_COLOR = 'turquoise';
@@ -35,6 +35,8 @@ export default class SortingVisualizer extends React.Component {
     for (let i = 0; i < NUMBER_OF_ARRAY_BARS; i++) {
       array.push(Math.floor(Math.random() * (500 - 5 + 1) + 5));
     }
+    const button = document.querySelectorAll('button');
+    button[button.length - 1].disabled = true;
     this.setState({ array });
     if(document.querySelector('#algorithm').innerText !== ""){
       document.querySelector('#algorithm').innerText = "";
@@ -47,6 +49,8 @@ export default class SortingVisualizer extends React.Component {
     const animations = getBubbleSortAnimations(this.state.array);
     let colorChangeCounter = 0;
     const arrayBars = document.getElementsByClassName('array--bar');
+    const buttons = document.querySelectorAll('button');
+    disableButtons(buttons);
     for (let i = 0; i < animations.length; i++) {
       if (animations[i][2] === "comp") {
         const [barOneIdx, barTwoIdx] = animations[i];
@@ -65,6 +69,9 @@ export default class SortingVisualizer extends React.Component {
           barOneStyle.height = `${barOneHeight}px`;
           const barTwoStyle = arrayBars[barTwoIdx].style;
           barTwoStyle.height = `${barTwoHeight}px`;
+          if(i === animations.length - 1 || i === animations.length - 2){
+            enableButtons(buttons);
+          }
         }, i * ANIMATION_SPEED_MS);
       }
     }
@@ -78,6 +85,8 @@ export default class SortingVisualizer extends React.Component {
     const animations = getSelectionSortAnimations(this.state.array);
     let colorChangeCounter = 0;
     const arrayBars = document.getElementsByClassName('array--bar');
+    const buttons = document.querySelectorAll('button');
+    disableButtons(buttons);
     for (let i = 0; i < animations.length; i++) {
       if (animations[i][2] === "comp") {
         const [barOneIdx, barTwoIdx] = animations[i];
@@ -96,6 +105,9 @@ export default class SortingVisualizer extends React.Component {
           barOneStyle.height = `${barOneHeight}px`;
           const barTwoStyle = arrayBars[barTwoIdx].style;
           barTwoStyle.height = `${barTwoHeight}px`;
+          if(i === animations.length - 1 || i === animations.length - 2){
+            enableButtons(buttons);
+          }
         }, i * ANIMATION_SPEED_MS);
       }
     }
@@ -109,6 +121,8 @@ export default class SortingVisualizer extends React.Component {
     const animations = getQuickSortAnimations(this.state.array);
     let colorChangeCounter = 0;
     const arrayBars = document.getElementsByClassName('array--bar');
+    const buttons = document.querySelectorAll('button');
+    disableButtons(buttons);
     for (let i = 0; i < animations.length; i++) {
       if (animations[i][2] === "comp") {
         const [barOneIdx, barTwoIdx] = animations[i];
@@ -125,6 +139,9 @@ export default class SortingVisualizer extends React.Component {
           const [barOneIdx, barOneHeight] = animations[i];
           const barOneStyle = arrayBars[barOneIdx].style;
           barOneStyle.height = `${barOneHeight}px`;
+          if(i === animations.length - 1 || i === animations.length - 2){
+            enableButtons(buttons);
+          }
         }, i * ANIMATION_SPEED_MS);
       }
     }
@@ -139,6 +156,8 @@ export default class SortingVisualizer extends React.Component {
     const animations = getMergeSortAnimations(this.state.array);
     let colorChangeCounter = 0;
     const arrayBars = document.getElementsByClassName('array--bar');
+    const buttons = document.querySelectorAll('button');
+    disableButtons(buttons);
     for (let i = 0; i < animations.length; i++) {
       if (animations[i][2] === "comp") {
         const [barOneIdx, barTwoIdx] = animations[i];
@@ -155,6 +174,9 @@ export default class SortingVisualizer extends React.Component {
           const [barOneIdx, newHeight] = animations[i];
           const barOneStyle = arrayBars[barOneIdx].style;
           barOneStyle.height = `${newHeight}px`;
+          if(i === animations.length - 1 || i === animations.length - 2) {
+            enableButtons(buttons);
+          }
         }, i * ANIMATION_SPEED_MS);
       }
     }
@@ -162,6 +184,10 @@ export default class SortingVisualizer extends React.Component {
    document.querySelector('#complexity').innerText = 'Best Time Complexity: O(nlogn) \n Average Time Complexity: O(nlogn) \n Worst Time Complexity: O(nlogn) \n Space Complexity: O(n)';
    document.querySelector('#bio').innerText = "Merge Sort is a sorting algorithm which uses a divide and conquer strategy. This algorithm will recursivly" +
    " divide the array into two equal halves, and keep dividing until it cannot be further divided, then they are combined as a sorted array.";
+  }
+
+  stopAnimation(){
+    window.location.reload();
   }
 
   render() {
@@ -185,6 +211,7 @@ export default class SortingVisualizer extends React.Component {
               <button onClick={() => this.selectionSort()}>Selection Sort</button>
               <button onClick={() => this.quickSort()}>Quick Sort</button>
               <button onClick={() => this.mergeSort()}>Merge Sort</button>
+              <button onClick={() => this.stopAnimation()}>Stop Animation</button>
             </div>
           </div>
         </div>
@@ -199,4 +226,22 @@ export default class SortingVisualizer extends React.Component {
       </div>
     );
   }
+}
+
+function disableButtons(buttons){
+  for(let i = 0; i < buttons.length - 1; i++){
+    buttons[i].disabled = true;
+    buttons[i].style.color = 'red';
+  }
+  buttons[buttons.length - 1].style.color = 'white';
+  buttons[buttons.length - 1].disabled = false;
+}
+
+function enableButtons(buttons){
+  for(let i = 0; i < buttons.length - 1; i++){
+    buttons[i].disabled = false;
+    buttons[i].style.color = 'white';
+  }
+  buttons[buttons.length - 1].style.color = 'red';
+  buttons[buttons.length - 1].disabled = true;
 }

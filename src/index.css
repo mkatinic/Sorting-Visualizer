@@ -12,7 +12,7 @@
 }
 
 .array--bar {
-    width: .2vw;
+    width: .29vw;
     display: inline-block;
     margin: 0 1px;
 }
@@ -26,11 +26,16 @@
 
 button {
     border: none;
-    padding-top: 5px;
+    padding-top: 8px;
     background-color: transparent;
     color: white;
     margin: 2px;
     font-weight: bold;
+    font-size: .5em;
+}
+
+button:nth-child(6) {
+    color: red;
 }
 
 button:hover {
@@ -55,7 +60,7 @@ h1, p {
     margin-top: 40px;
 }
 
-@media only screen and (max-width: 1030px) {
+@media only screen and (max-width: 1040px) {
     .array--container{
         display: inline;
     }
@@ -67,18 +72,23 @@ h1, p {
     }
 
     .array--bar {
-        width: .3vw;
+        width: .45vw;
     }
 }
 
-@media only screen and (max-width: 430px) {
+@media only screen and (max-width: 468px) {
     .array--bar {
-        width: .18vw;
+        width: .3vw;
+    }
+
+    .array--buttons {
+        height: 145px;
     }
 
     button {
+        display: block;
         margin: 0;
         padding-top: 10px;
-        font-size: .5em;
+        padding-left: 42%;
     }
 }
